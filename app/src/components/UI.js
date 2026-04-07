@@ -11,9 +11,6 @@ export const LayoutContext = createContext({
     isMobile: false
 });
 
-const SIDEBAR_WIDTH = 250
-const SIDEBAR_COLLAPSED_WIDTH = 80
-
 const UI = () => {
 
     const sideBarRef = useRef(null)
@@ -82,7 +79,9 @@ const UI = () => {
                             gap={3}
                             overflow='hidden'
                         >
-                            <TopBar />
+                            <TopBar
+                                drawer={handleDrawer}
+                            />
                             <Box
                                 display='flex'
                                 flexDirection='column'

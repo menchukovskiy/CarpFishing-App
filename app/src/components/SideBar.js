@@ -65,9 +65,9 @@ const SideBar = (props) => {
                 rootStyles={{
                     backgroundColor: `${colors.tealDark[400]}`,
                     border: 'none !important',
-                    borderRadius: '10px',
+                    borderRadius: props.mobile ? 0 : '10px',
                     overflow: 'hidden',
-                    height: '100%'
+                    height: props.mobile ? '100vh' : '100%'
                 }}
                 p={2}
                 
@@ -106,6 +106,7 @@ const SideBar = (props) => {
                     {props.mobile && (
                         <MenuItem
                             onClick={props.drawer}
+                            className="topItem"
                         >
                             <Box
                                 display="flex"
