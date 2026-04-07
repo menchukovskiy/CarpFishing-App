@@ -8,11 +8,10 @@ const AppRouter = () => {
         <Suspense fallback={<Loading />}>
             <Routes>
                 {ROUTER.map(({ path, component }, key) => {
-                    return(
-                    <Route key={key} path={path} element={component} />
+                    return (
+                        <Route key={key} path={path} element={component} />
                     )
-                }
-                )
+                })
                 }
             </Routes>
         </Suspense>

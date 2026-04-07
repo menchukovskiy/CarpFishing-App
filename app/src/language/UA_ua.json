@@ -2,6 +2,8 @@
     "language": "UA",
     "version": "1.0.0",
     "data": {
+        "MENU_ITEM_DASHBOARD": "Dashboard",
+        "MENU_ITEM_SETTINGS": "Налаштування",
         "ERROR_TEXT_UNEXPECTED_ERROR": "Щось пішло не так. Спробуйте пізніше."
     }
 }
