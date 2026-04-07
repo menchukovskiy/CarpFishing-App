@@ -4,6 +4,25 @@
     "data": {
         "MENU_ITEM_DASHBOARD": "Dashboard",
         "MENU_ITEM_SETTINGS": "Налаштування",
-        "ERROR_TEXT_UNEXPECTED_ERROR": "Щось пішло не так. Спробуйте пізніше."
+        "ERROR_TEXT_UNEXPECTED_ERROR": "Щось пішло не так. Спробуйте пізніше.",
+        "TEXT_SIGNIN": "Увійти",
+        "TEXT_SIGNUP": "Створити аккаунт",
+        "ERROR_TEXT_REGISTRATION_INCORECT_LOGIN_OR_PASSWORD": "Невірный логин или пароль",
+        "ERROR_TEXT_REGISTRATION_USER_ALREADY_EXISTS": "Користувач з таким логіном вже існує",
+        "ERROR_TEXT_REGISTRATION_USER_EMAIL_ALREADY_EXISTS": "Користувач з таким email вже існує",
+        "TEXT_BTN_REG_Q": "Зареєструватися",
+        "TEXT_BTN_SIGNIN_Q": "Вже є аккаунт? Увійти",
+        "TEXT_BTN_REGISTER" : "Зареєструватися",
+        "TEXT_BTN_SIGNIN": "Увійти",
+        "TEXT_LABEL_LOGIN": "Логін",
+        "TEXT_LABEL_PASSWORD": "Пароль",
+        "TEXT_LABEL_CONFIRM_PASSWORD": "Підтвердите пароль",
+        "ERROR_TEXT_FIELD_IS_EMPTY": "Поле не може бути порожнім",
+        "PASSWORD_ERROR_MIN_LENGTH": "Пароль повинен бути не менше 8 символів",
+        "TEXT_LABEL_PASSWORD_2": "Підтвердите пароль",
+        "PASSWORD_ERROR_CONFIRM": "Паролі не співпадають",
+        "ERROR_TEXT_DO_NOT_MATCH": "Не співпадають",
+        "ERROR_TEXT_INVALID_EMAIL": "Невірный email",
+        "TEXT_LABEL_EMAIL": "Email"
     }
 }

@@ -32,7 +32,11 @@ let theme = createTheme({
 
   palette: {
     mode: 'dark',
+     error: {
+      main: "#ff4f71",
+    },
 
+   
     secondary: {
       main: colors.lime[500],
     },
@@ -52,6 +56,54 @@ let theme = createTheme({
   },
 
   components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.tealDark[700],
+        },
+      },
+    },
+
+    MuiButton: {
+      styleOverrides: {
+        containedSecondary: {
+          backgroundColor: colors.lime[500],
+          '&:hover': {
+            backgroundColor: colors.lime[600],
+          },
+        },
+      },
+    },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: colors.lime[500],
+            borderWidth: 2
+          }
+        }
+      }
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          "&.Mui-focused": {
+            color: colors.lime[500]
+          }
+        }
+      }
+    },
+
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.tealDark[300],
+          color: colors.lime[500],
+        },
+      },
+    },
 
   }
 

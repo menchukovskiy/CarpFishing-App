@@ -6,6 +6,34 @@
         "text": "ERROR_TEXT_UNEXPECTED_ERROR",
         "severity": "error",
         "showInUI": true
+    },
+
+    "REGISTRATION" : {
+        "USER_ALREADY_EXISTS": {
+            "field": [
+                "login"
+            ],
+            "text": "ERROR_TEXT_REGISTRATION_USER_ALREADY_EXISTS",
+            "severity": "error",
+            "showInUI": true
+        },
+        "INCORECT_LOGIN_OR_PASSWORD": {
+            "field": [
+                "global"
+            ],
+            "text": "ERROR_TEXT_REGISTRATION_INCORECT_LOGIN_OR_PASSWORD",
+            "severity": "error",
+            "showInUI": true
+        },
+        
+        "USER_EMAIL_ALREADY_EXISTS": {
+            "field": [
+                "email"
+            ],
+            "text": "ERROR_TEXT_REGISTRATION_USER_EMAIL_ALREADY_EXISTS",
+            "severity": "error",
+            "showInUI": true
+        }
     }
 
 }

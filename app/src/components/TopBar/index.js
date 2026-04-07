@@ -4,6 +4,7 @@ import { LayoutContext } from '../UI';
 import { useContext } from 'react';
 import MenuIcon from '@mui/icons-material/Menu'
 import { colors } from "../../theme";
+import UserBox from "./UserBox";
 
 const TopBar = ({ drawer }) => {
 
@@ -39,6 +40,7 @@ const TopBar = ({ drawer }) => {
                 >
 
                 </Box>
+                <UserBox />
             </Box>
 
 

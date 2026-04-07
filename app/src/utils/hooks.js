@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-
+import { LANG } from "../language/lang"
  
 const useValidation = ( value, validations ) => {
 
 
-    const [ isEmpty, setEmpty ] = useState(true)
+    const [ isEmpty, setEmpty ] = useState(false)
     const [ minLength, setMinLength ] = useState(false)
     const [ maxLength, setMaxLength ] = useState(false)
     const [ isEmail, setEmail ] = useState(false)
@@ -13,88 +13,39 @@ const useValidation = ( value, validations ) => {
     const [ inputValid, setInputValid ] = useState(false) 
 
     useEffect( () => {
-        
-        for (const validation in validations) {
-            
-            switch(validation){
-                case 'minLength':
-                    value.length < validations[validation] ? setMinLength(true) : setMinLength(false)
-                break;
+        const nextIsEmpty = !!validations.isEmpty && !value
+        const nextMinLength = validations.minLength ? value.length < validations.minLength : false
+        const nextMaxLength = validations.maxLength ? value.length > validations.maxLength : false
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const nextIsEmail = validations.isEmail ? !(emailRegex.test(value) && value) : false
+        const nextIsSame = validations.isSame ? value !== validations.isSame : false
 
-                case 'isEmpty':
-                    if( value ){
-                        setEmpty(false)
-                        setError( '' )
-                        
-                    } else {
-                        setEmpty(true)
-                        setError( )
-                    }
-                    
-                break;
+        setEmpty(nextIsEmpty)
+        setMinLength(nextMinLength)
+        setMaxLength(nextMaxLength)
+        setEmail(nextIsEmail)
+        setSame(nextIsSame)
 
-                case 'isEmail':
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if( emailRegex.test(value) && value ){
-                        setEmail(false)
-                        setError( '' )
-                    } else {
-                        setEmail(true)
-                        setError(  )
-                    }
-                   
-                break;
-
-                case 'maxLength':
-                    
-                    if( value.length > validations[validation]  ){
-                        setMaxLength(true)
-                        setError(  )
-                    } else {
-                        setMaxLength(false)
-                        
-                    }
-                  
-                break
-
-                /*
-                case 'isEmpty':
-                    value ? setEmpty(false) : setEmpty(true)
-                break;
-                */
-                /*
-                case 'isEmail':
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    (emailRegex.test(value) && value) ? setEmail(false) : setEmail(true)
-                break;
-                */
-
-                case 'isSame':
-                   
-                    if( validations[validation] ){
-                        if( value === validations[validation] ){
-                            setSame(false)
-                            setError( '' )
-                        } else {
-                            setSame(true)
-                            setError(  )
-                        }
-                    }
-                   
-                    break;
-                    
-            }
-                
+        if (nextIsEmpty) {
+            setError(LANG('ERROR_TEXT_FIELD_IS_EMPTY'))
+        } else if (nextMinLength) {
+            setError(LANG('PASSWORD_ERROR_MIN_LENGTH'))
+        } else if (nextMaxLength) {
+            setError(LANG('ERROR_TEXT_MAX_LENGTH'))
+        } else if (nextIsEmail) {
+            setError(LANG('ERROR_TEXT_INVALID_EMAIL'))
+        } else if (nextIsSame) {
+            setError(LANG('ERROR_TEXT_DO_NOT_MATCH'))
+        } else {
+            setError('')
         }
-
-
-    }, [value] )
+    }, [value, validations] )
 
     useEffect( () => {
         if( isEmpty || minLength || isEmail || isSame || maxLength ){
-            setInputValid(true)
-        } else {
             setInputValid(false)
+        } else {
+            setInputValid(true)
         }
 
     }, [ isEmpty, minLength, isEmail, isSame, maxLength  ] )
@@ -120,7 +71,6 @@ export const useInput = ( initialValue, validations ) => {
     const clearInput = () => {
         setValue('')
         setDirty(false)
-        valid.err = false
     }
     
 
@@ -139,7 +89,7 @@ export const useInput = ( initialValue, validations ) => {
     const getError = () => {
         if( isDirty ){
             if( valid.err ){
-                return <div className="errorBox">{valid.err}</div> 
+                return valid.err
             }
 
             return false
