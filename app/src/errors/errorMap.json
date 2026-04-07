@@ -1,0 +1,11 @@
+{
+    "UNEXPECTED_ERROR": {
+        "field": [
+            "global"
+        ],
+        "text": "ERROR_TEXT_UNEXPECTED_ERROR",
+        "severity": "error",
+        "showInUI": true
+    }
+
+}
