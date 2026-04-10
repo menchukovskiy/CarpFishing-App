@@ -171,11 +171,6 @@ const RegisterForm = () => {
                         disabled={!login.inputValid || !password.inputValid || !confirmPassword.inputValid || !email.inputValid}
                     />
                 </Box>
-
-
-
-
-
             </CardContent>
 
 
