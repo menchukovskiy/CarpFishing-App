@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
-import { registration, login } from '../../http/userAPI.js';
+import { registration, signin } from '../../http/userAPI.js';
 
 export const handleRegistration = createAsyncThunk(
     'user/handleRegistration',
@@ -19,7 +19,7 @@ export const handleLogin = createAsyncThunk(
     'user/handleLogin',
     async ({ login, password }, { rejectWithValue }) => {
         try {
-            const data = await login(login, password)
+            const data = await signin(login, password)
             return data
         } catch (e) {
             return rejectWithValue(e?.code || 'Login failed')

@@ -37,15 +37,15 @@
     },
 
     "LOGIN" : {
-        "USER_ALREADY_EXISTS": {
+        "USER_NOT_FOUNDED": {
             "field": [
                 "login"
             ],
-            "text": "ERROR_TEXT_LOGIN_USER_ALREADY_EXISTS",
+            "text": "ERROR_TEXT_LOGIN_USER_NOT_FOUND",
             "severity": "error",
             "showInUI": true
         },
-        "INCORECT_LOGIN_OR_PASSWORD": {
+        "INCORRECT_PASSWORD": {
             "field": [
                 "password"
             ],

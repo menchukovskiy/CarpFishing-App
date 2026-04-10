@@ -20,7 +20,7 @@ export const registration = async (login, password, email, timezone) => {
         }
 }
 
-export const login = async (login, password) => {
+export const signin = async (login, password) => {
     const { data } = await $host.post(httpPoint.user + 'login', { login, password })
     return {
             user: jwtDecode(data.token),

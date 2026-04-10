@@ -105,6 +105,8 @@ const LoginForm = () => {
 
                         />
                         {password.getError() && <FormHelperText sx={{ maxWidth: '300px' }} error>{password.getError()}</FormHelperText>}
+                        {errors?.password && <FormHelperText sx={{ maxWidth: '300px' }} error>{errors?.password.message}</FormHelperText>}
+
                     </FormControl>
 
                    

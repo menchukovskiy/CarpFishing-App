@@ -10,7 +10,7 @@ const generateJWT = (id, login, timezone, email, avatar) => {
         { expiresIn: '4h' }
     )
 }
-
+ 
 const getDataUser = (user) => {
     return {
         id: user.id,
@@ -68,6 +68,34 @@ class UsersController {
 
         const user = req.user
         
+        const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
+
+        return res.json(
+            { token }
+        )
+    }
+
+    async login(req, res, next) {
+
+        const { login, password } = req.body
+        console.log(login, password)
+
+        if (!login || !password) {
+            return next(ApiError.invalidData('INCORECT_LOGIN_OR_PASSWORD', 'Incorrect login or password'))
+        }
+
+        const user = await User.findOne({ where: { login } })
+
+        if (!user) {
+            return next(ApiError.invalidData('USER_NOT_FOUNDED', 'Incorrect login or password'))
+        }
+ 
+        let comparePassword = bcrypt.compareSync(password, user.password)
+
+        if (!comparePassword) {
+            return next(ApiError.invalidData('INCORRECT_PASSWORD', 'Incorrect login or password'))
+        }
+
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
 
         return res.json(
