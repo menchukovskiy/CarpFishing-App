@@ -30,6 +30,8 @@
         "CONTEXT_MENU_SETTINGS": "Налаштування",
         "CONTEXT_MENU_LOGOUT": "Вийти",
         "SETTINGS_MAIN_SETTINGS": "Загальні",
-        "SETTINGS_ACCOUNT_SETTINGS": "Аккаунт"
+        "SETTINGS_ACCOUNT_SETTINGS": "Аккаунт",
+        "ERROR_TITLE": "Помилка",
+        "BTN_CLOSE": "Закрити"
     }
 }
