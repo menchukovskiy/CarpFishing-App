@@ -32,6 +32,18 @@
         "SETTINGS_MAIN_SETTINGS": "Загальні",
         "SETTINGS_ACCOUNT_SETTINGS": "Аккаунт",
         "ERROR_TITLE": "Помилка",
-        "BTN_CLOSE": "Закрити"
+        "BTN_CLOSE": "Закрити",
+        "TITLE_AS_USER": "Про себе",
+        "TITLE_PROFILE_PICTURE": "Фото профілю",
+        "BTN_CHANGE": "Змінити",
+        "BTN_EDIT": "Редагувати",
+        "UPLOAD_PHOTO": "Завантажити фото",
+        "DELETE_PHOTO": "Видалити фото",
+        "ERROR_FILE_NOT_SELECTED": "Файл не вибрано.",
+        "ERROR_INVALID_FILE_TYPE": "Можна завантажувати тільки JPG, PNG або WEBP.",
+        "ERROR_FILE_TOO_LARGE": "Файл занадто великий. Максимум 3 МБ.",
+        "TITLE_CROP_AVATAR": "Обрізати фото профілю",
+        "BUTTON_SAVE_AVATAR": "Зберегти фото профілю",
+        "BUTTON_SAVING": "Збереження..."
     }
 }

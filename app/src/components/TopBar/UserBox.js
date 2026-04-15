@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
+
 import { useState } from 'react';
 import ContextMenu from './ContextMenu';
+import AvatarBox from '../AvatarBox';
 
 const UserBox = () => {
-    const { user } = useSelector(state => state.user);
+    
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -18,17 +18,8 @@ const UserBox = () => {
 
     return (
         <>
-            <Box
-                onClick={handleClick}
-            >
-
-                {
-                    user?.avatar ? (
-                        <> Автарка есть </>
-                    ) : (
-                        <Avatar>{user?.login?.charAt(0).toUpperCase()}</Avatar>
-                    )
-                }
+            <Box onClick={handleClick} sx={{ cursor: 'pointer' }}>
+              <AvatarBox size={40} />
             </Box>
 
             <ContextMenu

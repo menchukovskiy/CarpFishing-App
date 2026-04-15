@@ -15,15 +15,22 @@ export const check = async () => {
 export const registration = async (login, password, email, timezone) => {
     const { data } = await $host.post(httpPoint.user + 'registration', { login, password, email, timezone })
     return {
-            user: jwtDecode(data.token),
-            token: data.token
-        }
+        user: jwtDecode(data.token),
+        token: data.token
+    }
 }
 
 export const signin = async (login, password) => {
     const { data } = await $host.post(httpPoint.user + 'login', { login, password })
     return {
-            user: jwtDecode(data.token),
-            token: data.token
-        }
+        user: jwtDecode(data.token),
+        token: data.token
+    }
+}
+export const updateAvatar = async (formData) => {
+    const { data } = await $authHost.post(httpPoint.user + 'update-avatar', formData);
+    return {
+        user: jwtDecode(data.token),
+        token: data.token
+    }
 }

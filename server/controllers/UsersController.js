@@ -1,6 +1,8 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 const { User } = require('../models');
 
 const generateJWT = (id, login, timezone, email, avatar) => {
@@ -18,6 +20,22 @@ const getDataUser = (user) => {
         timezone: user.timezone,
         avatar: user.avatar
     }
+}
+
+const renameFile = async (oldPath, newName) => {
+    const newPath = path.join(path.dirname(oldPath), newName)
+
+    try {
+        await fs.promises.access(newPath, fs.constants.F_OK)
+        await fs.promises.unlink(newPath)
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            throw error
+        }
+    }
+
+    await fs.promises.rename(oldPath, newPath)
+    return newPath
 }
 
 class UsersController {
@@ -67,7 +85,6 @@ class UsersController {
     async check(req, res, next) {
 
         const user = req.user
-        
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
 
         return res.json(
@@ -78,7 +95,6 @@ class UsersController {
     async login(req, res, next) {
 
         const { login, password } = req.body
-        console.log(login, password)
 
         if (!login || !password) {
             return next(ApiError.invalidData('INCORECT_LOGIN_OR_PASSWORD', 'Incorrect login or password'))
@@ -95,6 +111,36 @@ class UsersController {
         if (!comparePassword) {
             return next(ApiError.invalidData('INCORRECT_PASSWORD', 'Incorrect login or password'))
         }
+
+        const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
+
+        return res.json(
+            { token }
+        )
+    }
+
+    async updateAvatar(req, res, next) {
+        const avatar = req.files?.avatar?.[0]
+
+        console.log("Received avatar file:", avatar);
+
+        if (!avatar) {
+            return next(ApiError.invalidData('NO_AVATAR_UPLOADED', 'No avatar uploaded'))
+        }
+
+        const user = req.user
+
+        const newNameForFileAvatar = `user_${user.id}_avatar.jpg`
+        
+        try {
+            await renameFile( avatar.path, newNameForFileAvatar )
+        } catch (error) {
+            console.error('Error renaming avatar file:', error)
+            return next(ApiError.invalidData('AVATAR_UPLOAD_ERROR', 'Error uploading avatar'))
+        }
+        
+        user.avatar = newNameForFileAvatar
+        await user.save()
 
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
 

@@ -46,6 +46,10 @@ let theme = createTheme({
       paper: colors.tealDark[500],
     },
 
+    primary: {
+      main: colors.tealDark[300],
+    },
+
   },
 
   typography: {
