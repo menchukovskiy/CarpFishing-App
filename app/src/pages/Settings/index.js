@@ -1,10 +1,12 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
+import SubNavBar from '../../components/SubNavBar/index';
 
 const Settings = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <SubNavBar page="Settings" />
+            <Outlet /> 
+        </>
     );
 };
 

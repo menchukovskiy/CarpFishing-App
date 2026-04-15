@@ -1,0 +1,15 @@
+.sub-nav-link {
+  padding: 10px 0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.sub-nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* совпадает с border */
+  width: 100%;
+  height: 2px;
+}

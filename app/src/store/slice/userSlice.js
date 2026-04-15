@@ -44,7 +44,6 @@ const userSlice = createSlice({
             state.user = action.payload.user
         },
 
-
         clearErrors: (state) => {
             state.errors = {}
             state.globalError = null
@@ -59,9 +58,6 @@ const userSlice = createSlice({
             state.user = {}
             localStorage.removeItem('token')
         },
-
-
-
 
     },
 

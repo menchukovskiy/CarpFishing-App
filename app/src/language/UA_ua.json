@@ -25,6 +25,11 @@
         "ERROR_TEXT_INVALID_EMAIL": "Невірный email",
         "TEXT_LABEL_EMAIL": "Email",
         "ERROR_TEXT_LOGIN_USER_NOT_FOUND": "Користувача з таким логіном не знайдено",
-        "ERROR_TEXT_LOGIN_INCORRECT_PASSWORD": "Невірный пароль"
+        "ERROR_TEXT_LOGIN_INCORRECT_PASSWORD": "Невірный пароль",
+        "CONTEXT_MENU_PROFILE": "Аккаунт",
+        "CONTEXT_MENU_SETTINGS": "Налаштування",
+        "CONTEXT_MENU_LOGOUT": "Вийти",
+        "SETTINGS_MAIN_SETTINGS": "Загальні",
+        "SETTINGS_ACCOUNT_SETTINGS": "Аккаунт"
     }
 }

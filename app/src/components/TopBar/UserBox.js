@@ -1,8 +1,8 @@
-import { Box, Menu, MenuItem } from '@mui/material';
-import { LANG } from '../../language/lang';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import { useState } from 'react';
+import ContextMenu from './ContextMenu';
 
 const UserBox = () => {
     const { user } = useSelector(state => state.user);
@@ -14,7 +14,7 @@ const UserBox = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    console.log(user)
+
 
     return (
         <>
@@ -31,21 +31,11 @@ const UserBox = () => {
                 }
             </Box>
 
-            <Menu
-                id="basic-menu"
+            <ContextMenu
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
-                slotProps={{
-                    list: {
-                        'aria-labelledby': 'basic-button',
-                    },
-                }}
-            >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
+                handleClose={handleClose}
+            />
 
 
         </>

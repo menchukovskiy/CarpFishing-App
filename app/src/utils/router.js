@@ -7,6 +7,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Settings = lazy(() => import('../pages/Settings'))
+const MainSettings = lazy(() => import('../pages/Settings/MainSettings'))
+const AccountSettings = lazy(() => import('../pages/Settings/AccountSettings'))
 
 const ROUTE = [
     {
@@ -14,7 +16,8 @@ const ROUTE = [
         type: "MenuItem",
         title: LANG('MENU_ITEM_DASHBOARD'),
         icon: <HomeOutlinedIcon />,
-        component: <Dashboard />
+        component: <Dashboard />,
+        name: "Dashboard"
     },
 
     {
@@ -22,7 +25,22 @@ const ROUTE = [
         type: "MenuItem",
         title: LANG('MENU_ITEM_SETTINGS'),
         icon: <SettingsIcon />,
-        component: <Settings />
+        component: <Settings />,
+        name: "Settings",
+        children: [
+            { 
+                path: "", 
+                component: <MainSettings />, 
+                name: "MainSettings",
+                title: LANG('SETTINGS_MAIN_SETTINGS') 
+            },
+            { 
+                path: "account", 
+                component: <AccountSettings />, 
+                name: "AccountSettings",
+                title: LANG('SETTINGS_ACCOUNT_SETTINGS') 
+            }
+        ]
     },
 ]
 

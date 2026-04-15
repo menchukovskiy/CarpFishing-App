@@ -7,9 +7,13 @@ const AppRouter = () => {
     return (
         <Suspense fallback={<Loading />}>
             <Routes>
-                {ROUTER.map(({ path, component }, key) => {
+                {ROUTER.map(({ path, component, children }) => {
                     return (
-                        <Route key={key} path={path} element={component} />
+                        <Route key={path} path={path} element={component}>
+                        {children?.map(child => (
+                            <Route key={child.path} path={child.path} element={child.component} />
+                        ))}
+                    </Route>
                     )
                 })
                 }
