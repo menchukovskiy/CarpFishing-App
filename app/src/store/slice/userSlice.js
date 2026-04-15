@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
-import { registration, signin, updateAvatar } from '../../http/userAPI.js';
+import { registration, signin, updateAvatar, removeAvatar } from '../../http/userAPI.js';
+import { invalidateImageCache } from '../../utils/getImage';
 
 
 export const handleRegistration = createAsyncThunk(
@@ -30,17 +31,43 @@ export const handleLogin = createAsyncThunk(
 
 export const handleUpdateAvatar = createAsyncThunk(
     'user/handleUpdateAvatar',
-    async (croppedBlob, { rejectWithValue }) => {
+    async (croppedBlob, { rejectWithValue, getState }) => {
         try {
+            const { user } = getState().user;
 
             const formData = new FormData();
             const file = new File([croppedBlob], "avatar.jpg", { type: "image/jpeg" });
             formData.append("avatar", file);
             const data = await updateAvatar(formData);
+
+            if (user?.avatar) {
+                invalidateImageCache('users_avatar', user.avatar);
+            }
+
             return data;
 
         } catch (e) {
             return rejectWithValue(e?.code || 'Failed to update avatar');
+        }
+    }
+);
+
+export const handleRemoveAvatar = createAsyncThunk(
+    'user/handleRemoveAvatar',
+    async (_, { rejectWithValue, getState }) => {
+        try {
+            const { user } = getState().user;
+
+            const data = await removeAvatar();
+
+            if (user?.avatar) {
+                invalidateImageCache('users_avatar', user.avatar);
+            }
+
+            return data;
+
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to remove avatar');
         }
     }
 );
@@ -54,6 +81,7 @@ const userSlice = createSlice({
         globalError: null,
         isLoading: false,
         user: {},
+        avatarVersion: 0,
 
     },
     reducers: {
@@ -102,6 +130,15 @@ const userSlice = createSlice({
             .addCase(handleUpdateAvatar.pending, handlePending)
             .addCase(handleUpdateAvatar.fulfilled, (state, action) => {
                 state.user = action.payload.user
+                state.avatarVersion += 1
+                localStorage.setItem('token', action.payload.token)
+            })
+
+            .addCase(handleRemoveAvatar.rejected, createThunkErrorHandler("REMOVE_AVATAR"))
+            .addCase(handleRemoveAvatar.pending, handlePending)
+            .addCase(handleRemoveAvatar.fulfilled, (state, action) => {
+                state.user = action.payload.user
+                state.avatarVersion = 0
                 localStorage.setItem('token', action.payload.token)
             })
 

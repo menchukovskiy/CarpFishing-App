@@ -147,6 +147,32 @@ class UsersController {
         )
     }
 
+    async removeAvatar(req, res, next) {
+        const user = req.user
+
+        if (!user.avatar) {
+            return next(ApiError.invalidData('NO_AVATAR_TO_REMOVE', 'No avatar to remove'))
+        }
+
+        const avatarPath = path.resolve(__dirname, "../files/users_avatar", user.avatar)
+
+        try {
+            await fs.promises.unlink(avatarPath)
+        } catch (error) {
+            console.error('Error deleting avatar file:', error)
+            return next(ApiError.invalidData('AVATAR_DELETE_ERROR', 'Error deleting avatar'))
+        }
+
+        user.avatar = null
+        await user.save()
+
+        const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
+
+        return res.json(
+            { token }
+        )
+    }
+
 }
 
 module.exports = new UsersController()

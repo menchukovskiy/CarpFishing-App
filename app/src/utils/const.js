@@ -3,6 +3,7 @@ import { colors } from "../theme";
 
 export const httpPoint = {
     user: '/users/',
+    files: '/files/',
 }
 
 export const boxStyles = {

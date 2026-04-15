@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import validateImageFile from "../../../utils/validateImageFile";
-import { handleUpdateAvatar } from "../../../store/slice/userSlice";
+import { handleUpdateAvatar, handleRemoveAvatar } from "../../../store/slice/userSlice";
 
 const AccauntPicture = () => {
 
@@ -35,6 +35,7 @@ const AccauntPicture = () => {
     }
 
     const handleDeleteClick = () => {
+        dispatch(handleRemoveAvatar());
     }
 
     const handleFileChange = (event) => {
@@ -70,7 +71,7 @@ const AccauntPicture = () => {
 
     const handleConfirmCrop = (croppedBlob) => {
         handleCloseCropModal();
-        dispatch( handleUpdateAvatar(croppedBlob) );
+        dispatch(handleUpdateAvatar(croppedBlob));
     }
 
     return (

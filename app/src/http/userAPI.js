@@ -34,3 +34,11 @@ export const updateAvatar = async (formData) => {
         token: data.token
     }
 }
+
+export const removeAvatar = async () => {
+    const { data } = await $authHost.delete(httpPoint.user + 'remove-avatar');
+    return {
+        user: jwtDecode(data.token),
+        token: data.token
+    }
+}
