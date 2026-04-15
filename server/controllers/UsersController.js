@@ -122,8 +122,6 @@ class UsersController {
     async updateAvatar(req, res, next) {
         const avatar = req.files?.avatar?.[0]
 
-        console.log("Received avatar file:", avatar);
-
         if (!avatar) {
             return next(ApiError.invalidData('NO_AVATAR_UPLOADED', 'No avatar uploaded'))
         }

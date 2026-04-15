@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
+import { handleUpdateAvatar } from './userSlice.js';
 
 const settingsSlice = createSlice({
     name: 'settings',
@@ -25,7 +26,9 @@ const settingsSlice = createSlice({
     },
 
     extraReducers: builder => {
-        //builder
+        builder
+
+            .addCase(handleUpdateAvatar.rejected, createThunkErrorHandler("UPDATE_AVATAR"))
 
 
     }
