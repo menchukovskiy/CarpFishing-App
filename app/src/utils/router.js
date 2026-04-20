@@ -8,7 +8,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Settings = lazy(() => import('../pages/Settings'))
 const MainSettings = lazy(() => import('../pages/Settings/MainSettings'))
-const AccountSettings = lazy(() => import('../pages/Settings/AccountSettings'))
+const AccauntSettings = lazy(() => import('../pages/Settings/AccauntSettings'))
 
 const ROUTE = [
     {
@@ -36,8 +36,8 @@ const ROUTE = [
             },
             { 
                 path: "account", 
-                component: <AccountSettings />, 
-                name: "AccountSettings",
+                component: <AccauntSettings />, 
+                name: "AccauntSettings",
                 title: LANG('SETTINGS_ACCOUNT_SETTINGS') 
             }
         ]

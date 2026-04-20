@@ -44,6 +44,23 @@
         "ERROR_FILE_TOO_LARGE": "Файл занадто великий. Максимум 3 МБ.",
         "TITLE_CROP_AVATAR": "Обрізати фото профілю",
         "BUTTON_SAVE_AVATAR": "Зберегти фото профілю",
-        "BUTTON_SAVING": "Збереження..."
+        "BUTTON_SAVING": "Збереження...",
+        "SETTINGS_ACCOUNT_NAME": "Ім'я",
+        "SETTINGS_ACCOUNT_NAME_HELP": "Ви можете вказати своє ім'я, щоб інші користувачі бачили його в чатах та списках учасників.",
+        "SETTINGS_ACCOUNT_NAME_PLACEHOLDER": "Введіть ваше ім'я",
+        "SETTINGS_ACCOUNT_EMAIL": "Публічний Email",
+        "SETTINGS_ACCOUNT_EMAIL_HELP": "Ви можете вказати свій публічний email, щоб інші користувачі могли з вами зв'язатися.",
+        "SETTINGS_ACCOUNT_EMAIL_PLACEHOLDER": "Введіть ваш публічний email",
+        "SETTINGS_ACCOUNT_PHONE": "Номер телефон",
+        "SETTINGS_ACCOUNT_PHONE_HELP": "Ви можете вказати свій номер телефон, щоб інші користувачі могли з вами зв'язатися.",
+        "SETTINGS_ACCOUNT_PHONE_PLACEHOLDER": "Введіть ваш номер телефон",
+        "SETTINGS_ACCOUNT_BIO": "Про себе",
+        "SETTINGS_ACCOUNT_BIO_PLACEHOLDER": "Розкажіть про себе",
+        "SETTINGS_ACCOUNT_BIO_HELP": "Розкажіть про себе, свої інтереси та хобі.",
+        "SETTINGS_ACCOUNT_BIRTHDAY": "Дата народження",
+        "SETTINGS_ACCOUNT_BIRTHDAY_PLACEHOLDER": "Введіть вашу дату народження",
+        "SETTINGS_ACCOUNT_BIRTHDAY_HELP": "Вкажіть вашу дату народження, щоб інші користувачі могли привітати вас з днем народження.",
+        "SETTINGS_ACCOUNT_SOCIAL": "Соціальні мережі",
+        "SETTINGS_ACCOUNT_SAVE": "Зберегти зміни"
     }
 }

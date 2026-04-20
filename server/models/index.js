@@ -29,6 +29,23 @@ const User = sequelize.define('users', {
         timestamps: false
     })
 
+const UserInfo = sequelize.define('users_info', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    user_id: { type: DataTypes.INTEGER, unique: true },
+    name: { type: DataTypes.STRING, allowNull: true },
+    bio: { type: DataTypes.STRING, allowNull: true },
+    phone: { type: DataTypes.STRING, allowNull: true },
+    public_email: { type: DataTypes.STRING, allowNull: true },
+    birthday: { type: DataTypes.DATEONLY, allowNull: true },
+    social_accounts: { type: DataTypes.JSON, allowNull: true } 
+}, { 
+    timestamps: false
+})
+
+User.hasOne(UserInfo, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+UserInfo.belongsTo(User, { foreignKey: 'user_id' });
+
 module.exports = {
-    User
+    User,
+    UserInfo
 }

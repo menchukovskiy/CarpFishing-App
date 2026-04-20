@@ -4,27 +4,29 @@ import { boxStyles, boxStylesBorder } from '../../utils/const';
 import { Box, Typography } from '@mui/material';
 import { LANG } from '../../language/lang';
 import AccauntPicture from './AccauntPicture';
+import AccauontForm from './AccauntForm';
 
-const AccountSettings = () => {
+const AccauntSettings = () => {
     const { isMobile } = useContext(LayoutContext)
 
     return (
         <>
             <Box
                 display="flex"
-                flexDirection={isMobile ? "column" : "row"}
+                flexDirection={isMobile ? "column-reverse" : "row"}
                 gap={3}
             >
 
                 <Box
-                    sx={boxStylesBorder}
+                    sx={{...boxStylesBorder, flex:1}}
                 >
-                    <Typography variant="h6">{LANG("TITLE_AS_USER")}</Typography>
+                    <Typography variant="h6" mb={1}>{LANG("TITLE_AS_USER")}</Typography>
+                    <AccauontForm isMobile={isMobile} />
                 </Box>
 
                 <Box
                 >
-                    <Typography variant="h6">{LANG("TITLE_PROFILE_PICTURE")}</Typography>
+                    <Typography variant="h6" mb={1}>{LANG("TITLE_PROFILE_PICTURE")}</Typography>
                     <AccauntPicture />
                 </Box>
 
@@ -33,4 +35,4 @@ const AccountSettings = () => {
     );
 };
 
-export default AccountSettings;
+export default AccauntSettings;

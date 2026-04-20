@@ -1,7 +1,33 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
-import { handleUpdateAvatar } from './userSlice.js';
+import { handleUpdateAvatar, handleRemoveAvatar } from './userSlice.js';
+import { getUserInfo, updateUserInfo } from '../../http/settingsAPI.js';
+
+
+export const handleFetchUserInfo = createAsyncThunk(
+    'settings/handleFetchUserInfo',
+    async (_, { rejectWithValue }) => {
+        try {
+            const data = await getUserInfo();
+            return data;
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to fetch user information');
+        }
+    }
+);
+
+export const handleUpdateUserInfo = createAsyncThunk(
+    'settings/handleUpdateUserInfo',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const data = await updateUserInfo(payload);
+            return data;
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to update user information');
+        }
+    }
+);
 
 const settingsSlice = createSlice({
     name: 'settings',
@@ -9,6 +35,7 @@ const settingsSlice = createSlice({
         errors: {},
         globalError: null,
         isLoading: false,
+        user_info: {}
     },
     reducers: {
 
@@ -27,10 +54,21 @@ const settingsSlice = createSlice({
 
     extraReducers: builder => {
         builder
-
             .addCase(handleUpdateAvatar.rejected, createThunkErrorHandler("UPDATE_AVATAR"))
+            .addCase(handleRemoveAvatar.rejected, createThunkErrorHandler("REMOVE_AVATAR"))
 
-
+            .addCase(handleFetchUserInfo.pending, handlePending)
+            .addCase(handleFetchUserInfo.rejected, createThunkErrorHandler("FETCH_USER_INFO"))
+            .addCase(handleFetchUserInfo.fulfilled, (state, action) => {
+                state.user_info = action.payload.data || {}
+                state.isLoading = false
+            })
+            .addCase(handleUpdateUserInfo.pending, handlePending)
+            .addCase(handleUpdateUserInfo.rejected, createThunkErrorHandler("UPDATE_USER_INFO"))
+            .addCase(handleUpdateUserInfo.fulfilled, (state, action) => {
+                state.user_info = action.payload.data || {}
+                state.isLoading = false
+            })
     }
 
 
