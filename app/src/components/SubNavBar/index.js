@@ -8,6 +8,9 @@ import { useLocation } from "react-router-dom";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
+import { Link as RouterLink } from "react-router-dom";
+import { Link as MuiLink } from "@mui/material";
+
 const SubNavBar = ({ page }) => {
 
     const { isMobile } = useContext(LayoutContext)
@@ -44,9 +47,10 @@ const SubNavBar = ({ page }) => {
                             const path = subRoute.path !== "" ? `${currentRoute.path}/${subRoute.path}` : currentRoute.path
                             const isActive = location.pathname === path
                             return (
-                                <Link
+                                <MuiLink
                                     key={index}
-                                    href={path}
+                                    component={RouterLink}
+                                    to={path}
                                     className={`sub-nav-link ${isActive ? 'active' : ''}`}
                                     sx={{
                                         color: colors.tealDark[900],
@@ -62,7 +66,7 @@ const SubNavBar = ({ page }) => {
                                     }}
                                 >
                                     {subRoute.title || subRoute.name}
-                                </Link>
+                                </MuiLink>
                             )
                         }
                         )}
@@ -127,8 +131,8 @@ const SubNavBar = ({ page }) => {
                                         <MenuItem
                                             key={index}
                                             onClick={handleClose}
-                                            component="a"
-                                            href={path}
+                                            component={RouterLink}
+                                            to={path}
                                             selected={location.pathname === path}
                                         >
                                             {subRoute.title || subRoute.name}
