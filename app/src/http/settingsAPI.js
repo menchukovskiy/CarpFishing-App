@@ -10,3 +10,13 @@ export const updateUserInfo = async (payload) => {
     const { data } = await $authHost.put(`${httpPoint.settings}user-info`, payload)
     return data
 }
+
+export const getUserSecurities = async () => {
+    const { data } = await $authHost.get(`${httpPoint.settings}user-securities`)
+    return data
+}   
+
+export const updateUserSecurities = async (payload) => {
+    const { data } = await $authHost.put(`${httpPoint.settings}user-securities`, payload)
+    return data
+}

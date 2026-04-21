@@ -1,6 +1,6 @@
 
 const ApiError = require('../error/ApiError');
-const { UserInfo } = require('../models');
+const { UserInfo, UserSecurity } = require('../models');
 
 class SettingsController {
 
@@ -65,6 +65,48 @@ class SettingsController {
             })
         } catch (error) {
             next(ApiError.internal('INTERNAL_SERVER_ERROR', 'An error occurred while updating user information'))
+        }
+
+    }
+
+    async getUserSecurities(req, res, next) {
+        const userId = req.user.id
+
+        try {
+            const userSecurities = await UserSecurity.findAll({
+                where: { user_id: userId },
+                attributes: { exclude: ['id', 'user_id'] }
+            })
+            
+
+            res.json({
+                data: userSecurities || []
+            })
+        } catch (error) {
+            next(ApiError.internal('INTERNAL_SERVER_ERROR', 'An error occurred while fetching user securities'))
+        }
+    }
+
+    async updateUserSecurities(req, res, next) {
+        const userId = req.user.id
+        const { securities } = req.body
+
+        try {
+            await UserSecurity.upsert({
+                ...securities,
+                user_id: userId
+            });
+
+            const userSecurities = await UserSecurity.findAll({
+                where: { user_id: userId },
+                attributes: { exclude: ['id', 'user_id'] }
+            })
+
+            res.json({
+                data: userSecurities || []
+            })
+        } catch (error) {
+            next(ApiError.internal('INTERNAL_SERVER_ERROR', 'An error occurred while updating user securities'))
         }
 
     }

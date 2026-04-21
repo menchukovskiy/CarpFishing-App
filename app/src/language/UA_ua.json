@@ -71,6 +71,18 @@
         "SETTINGS_ACCOUNT_PASSWORD_HELP": "Введіть новий пароль або залиште поле порожнім для збереження поточного паролю.",
         "SETTINGS_ACCOUNT_PASSWORD_PLACEHOLDER": "Введіть новий пароль",
         "SETTINGS_ACCOUNT_SAVE_BTN": "Зберегти зміни",
-        "TITLE_AS_SECURITIES": "Налаштування приватності"
+        "TITLE_AS_SECURITIES": "Налаштування приватності",
+        "PRIVATE": "Нікому",
+        "PUBLIC": "Для всіх",
+        "FRIENDS": "Тільки друзям",
+        "SETTINGS_ACCOUNT_PROFILE_TYPE": "Тип профілю",
+        "SETTINGS_ACCOUNT_WHO_CAN_SEE_PROFILE": "Хто може бачити ваш профіль",
+        "SETTINGS_ACCOUNT_WHO_CAN_MESSAGE": "Хто може надсилати вам повідомлення",
+        "SETTINGS_ACCOUNT_WHO_CAN_SEE_BIRTHDAY": "Хто може бачити вашу дату народження",
+        "SETTINGS_ACCOUNT_WHO_CAN_SEE_PHONE": "Хто може бачити ваш номер телефон",
+        "SETTINGS_ACCOUNT_WHO_CAN_SEE_EMAIL": "Хто может видеть ваш email",
+        "SETTINGS_ACCOUNT_WHO_CAN_SEE_SOCIAL_ACCOUNTS": "Хто может бачити ваші соціальні мережі",
+        "ACCOUNT_PUBLIC": "Публічний",
+        "ACCOUNT_PRIVATE": "Приватний"
     }
 }

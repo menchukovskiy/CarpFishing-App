@@ -1,5 +1,5 @@
-import { borderBottom } from "@mui/system";
 import { colors } from "../theme";
+import { LANG } from "../language/lang";
 
 export const httpPoint = {
     user: '/users/',
@@ -19,3 +19,11 @@ export const boxStylesBorder = {
     padding: 2,
     borderBottom: `1px solid ${colors.lime[500]}`
 }
+
+export const PRIVATE_STATUS = [
+    { value: 'private', label: LANG("PRIVATE") },
+    { value: 'public', label: LANG("PUBLIC") },
+    { value: 'friends', label: LANG("FRIENDS") }
+]
+
+

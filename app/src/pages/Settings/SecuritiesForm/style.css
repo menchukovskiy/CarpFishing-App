@@ -1,0 +1,8 @@
+ .settings-field {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+ }
+
+ .settings-field:last-child {
+    border-bottom-width: 0;
+ }

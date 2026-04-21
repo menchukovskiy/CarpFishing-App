@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
 import { handleUpdateAvatar, handleRemoveAvatar, handleChangeEmailAndPassword } from './userSlice.js';
-import { getUserInfo, updateUserInfo } from '../../http/settingsAPI.js';
+import { getUserInfo, updateUserInfo, getUserSecurities, updateUserSecurities } from '../../http/settingsAPI.js';
 
 
 export const handleFetchUserInfo = createAsyncThunk(
@@ -29,13 +29,40 @@ export const handleUpdateUserInfo = createAsyncThunk(
     }
 );
 
+export const handleFetchUserSecurities = createAsyncThunk(
+    'settings/handleFetchUserSecurities',
+    async (_, { rejectWithValue }) => {
+        try {
+            
+            const data = await getUserSecurities();
+            return data;
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to fetch user securities');
+        }
+    }
+);
+
+export const handleUpdateUserSecurities = createAsyncThunk(
+    'settings/handleUpdateUserSecurities',
+    async (payload, { rejectWithValue }) => {
+        try {
+            
+            const data = await updateUserSecurities({ securities: payload });
+            return data;
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to update user securities');
+        }
+    }
+);
+
 const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
         errors: {},
         globalError: null,
         isLoading: false,
-        user_info: {}
+        user_info: {},
+        user_securities: []
     },
     reducers: {
 
@@ -76,6 +103,7 @@ const settingsSlice = createSlice({
                 state.user_info = action.payload.data || {}
                 state.isLoading = false
             })
+
             .addCase(handleUpdateUserInfo.pending, handlePending)
             .addCase(handleUpdateUserInfo.rejected, createThunkErrorHandler("UPDATE_USER_INFO"))
             .addCase(handleUpdateUserInfo.fulfilled, (state, action) => {
@@ -83,7 +111,20 @@ const settingsSlice = createSlice({
                 state.isLoading = false
             })
 
-            
+            .addCase(handleFetchUserSecurities.pending, handlePending)
+            .addCase(handleFetchUserSecurities.rejected, createThunkErrorHandler("FETCH_USER_SECURITIES"))
+            .addCase(handleFetchUserSecurities.fulfilled, (state, action) => {
+                state.user_securities = action.payload.data || []
+                state.isLoading = false
+            })
+
+            .addCase(handleUpdateUserSecurities.pending, handlePending)
+            .addCase(handleUpdateUserSecurities.rejected, createThunkErrorHandler("UPDATE_USER_SECURITIES"))
+            .addCase(handleUpdateUserSecurities.fulfilled, (state, action) => {
+                state.user_securities = action.payload.data || []
+                state.isLoading = false
+            })
+
 
 
     }
