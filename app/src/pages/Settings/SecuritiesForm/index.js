@@ -50,6 +50,9 @@ const SecuritiesForm = ({ isMobile }) => {
             return
         }
         setSecurities(user_securities)
+        if (user_securities[0].profile_type === 'private') {
+            setDisabled(true)
+        } 
 
     }, [user_securities])
 
