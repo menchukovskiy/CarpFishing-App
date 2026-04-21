@@ -2,7 +2,7 @@ import { LayoutContext } from '../UI';
 import { useContext, useState } from 'react';
 import ROUTE from '../../utils/router';
 import './index.css';
-import { Box, Button, Link, Typography, Menu, MenuItem } from '@mui/material';
+import { Box, Button, Typography, Menu, MenuItem } from '@mui/material';
 import { colors } from "../../theme";
 import { useLocation } from "react-router-dom";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
