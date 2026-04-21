@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
-import { handleUpdateAvatar, handleRemoveAvatar } from './userSlice.js';
+import { handleUpdateAvatar, handleRemoveAvatar, handleChangeEmailAndPassword } from './userSlice.js';
 import { getUserInfo, updateUserInfo } from '../../http/settingsAPI.js';
 
 
@@ -54,8 +54,21 @@ const settingsSlice = createSlice({
 
     extraReducers: builder => {
         builder
+            .addCase(handleUpdateAvatar.pending, handlePending)
+            .addCase(handleRemoveAvatar.pending, handlePending)
+            .addCase(handleChangeEmailAndPassword.pending, handlePending)
             .addCase(handleUpdateAvatar.rejected, createThunkErrorHandler("UPDATE_AVATAR"))
             .addCase(handleRemoveAvatar.rejected, createThunkErrorHandler("REMOVE_AVATAR"))
+            .addCase(handleChangeEmailAndPassword.rejected, createThunkErrorHandler("CHANGE_EMAIL_AND_PASSWORD"))
+            .addCase(handleChangeEmailAndPassword.fulfilled, (state) => {
+                state.isLoading = false
+            })
+            .addCase(handleUpdateAvatar.fulfilled, (state) => {
+                state.isLoading = false
+            })
+            .addCase(handleRemoveAvatar.fulfilled, (state) => {
+                state.isLoading = false
+            })
 
             .addCase(handleFetchUserInfo.pending, handlePending)
             .addCase(handleFetchUserInfo.rejected, createThunkErrorHandler("FETCH_USER_INFO"))
@@ -69,6 +82,10 @@ const settingsSlice = createSlice({
                 state.user_info = action.payload.data || {}
                 state.isLoading = false
             })
+
+            
+
+
     }
 
 

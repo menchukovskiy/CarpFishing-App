@@ -61,6 +61,16 @@
         "SETTINGS_ACCOUNT_BIRTHDAY_PLACEHOLDER": "Введіть вашу дату народження",
         "SETTINGS_ACCOUNT_BIRTHDAY_HELP": "Вкажіть вашу дату народження, щоб інші користувачі могли привітати вас з днем народження.",
         "SETTINGS_ACCOUNT_SOCIAL": "Соціальні мережі",
-        "SETTINGS_ACCOUNT_SAVE": "Зберегти зміни"
+        "SETTINGS_ACCOUNT_SAVE": "Зберегти зміни",
+        "TITLE_AS_SETTINGS": "Налаштування аккаунта",
+        "SETTINGS_ACCOUNT_LOGIN": "Логін",
+        "SETTINGS_ACCOUNT_LOGIN_HELP": "Ваш логін не може бути змінений.",
+        "SETTINGS_ACCOUNT_MAIN_EMAIL": "Основной Email",
+        "SETTINGS_ACCOUNT_MAIN_EMAIL_HELP": "Ваш основной email використовується для відновлення паролю.",
+        "SETTINGS_ACCOUNT_PASSWORD": "Пароль",
+        "SETTINGS_ACCOUNT_PASSWORD_HELP": "Введіть новий пароль або залиште поле порожнім для збереження поточного паролю.",
+        "SETTINGS_ACCOUNT_PASSWORD_PLACEHOLDER": "Введіть новий пароль",
+        "SETTINGS_ACCOUNT_SAVE_BTN": "Зберегти зміни",
+        "TITLE_AS_SECURITIES": "Налаштування приватності"
     }
 }

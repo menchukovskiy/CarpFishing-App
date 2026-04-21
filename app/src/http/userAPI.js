@@ -42,3 +42,11 @@ export const removeAvatar = async () => {
         token: data.token
     }
 }
+
+export const updateEmailAndPassword = async (email, password) => {
+    const { data } = await $authHost.put(httpPoint.user + 'update-email-password', { email, password });
+    return {
+        user: jwtDecode(data.token),
+        token: data.token
+    }
+}

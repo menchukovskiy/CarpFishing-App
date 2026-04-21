@@ -1,4 +1,3 @@
-const { registration } = require('../../../SER_API/server/controllers/UsersController');
 const sequelize = require('../db')
 const { DataTypes } = require('sequelize')
 
@@ -42,10 +41,28 @@ const UserInfo = sequelize.define('users_info', {
     timestamps: false
 })
 
+const UserSecurity = sequelize.define('users_security', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    user_id: { type: DataTypes.INTEGER, unique: true },
+    profile_type: { type: DataTypes.ENUM('public', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_see_profile: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_message: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_see_birthday: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_see_phone: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_see_email: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' },
+    who_can_see_social_accounts: { type: DataTypes.ENUM('public', 'friends', 'private'), allowNull: false, defaultValue: 'public' }
+}, {
+    timestamps: false
+})  
+
 User.hasOne(UserInfo, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 UserInfo.belongsTo(User, { foreignKey: 'user_id' });
 
+User.hasOne(UserSecurity, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+UserSecurity.belongsTo(User, { foreignKey: 'user_id' });
+
 module.exports = {
     User,
-    UserInfo
+    UserInfo,
+    UserSecurity
 }

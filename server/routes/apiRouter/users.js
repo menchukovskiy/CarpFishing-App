@@ -22,5 +22,7 @@ router.post('/update-avatar', AuthUserMiddleware, uploadAvatar, multerErrorHandl
 
 router.delete('/remove-avatar', AuthUserMiddleware, usersController.removeAvatar)
 
+router.put('/update-email-password', AuthUserMiddleware, usersController.updateEmailAndPassword)
+
 
 module.exports = router

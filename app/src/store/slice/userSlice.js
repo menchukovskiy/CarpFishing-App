@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createThunkErrorHandler } from '../../utils/handleThunkError.js';
 import { handlePending } from '../../utils/handlePending.js';
-import { registration, signin, updateAvatar, removeAvatar } from '../../http/userAPI.js';
+import { registration, signin, updateAvatar, removeAvatar, updateEmailAndPassword } from '../../http/userAPI.js';
 import { invalidateImageCache } from '../../utils/getImage';
 
 
@@ -72,6 +72,24 @@ export const handleRemoveAvatar = createAsyncThunk(
     }
 );
 
+export const handleChangeEmailAndPassword = createAsyncThunk(
+    'user/handleChangeEmailAndPassword',
+    async ({ email, password }, { rejectWithValue, getState }) => {
+        try {
+            const { user } = getState().user;
+            if (email === user.email && password === '') {
+                return { user, token: localStorage.getItem('token') }
+            }
+
+            const data = await updateEmailAndPassword(email, password);
+            return data;
+
+        } catch (e) {
+            return rejectWithValue(e?.code || 'Failed to change email and password');
+        }
+    }
+);
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -103,6 +121,7 @@ const userSlice = createSlice({
             state.isAuth = false
             state.user = {}
             localStorage.removeItem('token')
+            state.isLoading = false
         },
 
     },
@@ -113,6 +132,7 @@ const userSlice = createSlice({
             .addCase(handleRegistration.rejected, createThunkErrorHandler("REGISTRATION"))
             .addCase(handleRegistration.pending, handlePending)
             .addCase(handleRegistration.fulfilled, (state, action) => {
+                state.isLoading = false
                 state.isAuth = true
                 state.user = action.payload.user
                 localStorage.setItem('token', action.payload.token)
@@ -121,6 +141,7 @@ const userSlice = createSlice({
             .addCase(handleLogin.rejected, createThunkErrorHandler("LOGIN"))
             .addCase(handleLogin.pending, handlePending)
             .addCase(handleLogin.fulfilled, (state, action) => {
+                state.isLoading = false
                 state.isAuth = true
                 state.user = action.payload.user
                 localStorage.setItem('token', action.payload.token)
@@ -129,6 +150,7 @@ const userSlice = createSlice({
             .addCase(handleUpdateAvatar.rejected, createThunkErrorHandler("UPDATE_AVATAR"))
             .addCase(handleUpdateAvatar.pending, handlePending)
             .addCase(handleUpdateAvatar.fulfilled, (state, action) => {
+                state.isLoading = false
                 state.user = action.payload.user
                 state.avatarVersion += 1
                 localStorage.setItem('token', action.payload.token)
@@ -137,13 +159,22 @@ const userSlice = createSlice({
             .addCase(handleRemoveAvatar.rejected, createThunkErrorHandler("REMOVE_AVATAR"))
             .addCase(handleRemoveAvatar.pending, handlePending)
             .addCase(handleRemoveAvatar.fulfilled, (state, action) => {
+                state.isLoading = false
                 state.user = action.payload.user
                 state.avatarVersion = 0
                 localStorage.setItem('token', action.payload.token)
             })
 
-    }
-});
+            .addCase(handleChangeEmailAndPassword.rejected, createThunkErrorHandler("REGISTRATION"))
+            .addCase(handleChangeEmailAndPassword.pending, handlePending)
+            .addCase(handleChangeEmailAndPassword.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.user = action.payload.user
+                localStorage.setItem('token', action.payload.token)
+            })
+
+        }
+    });
 
 export const {
     setUser,

@@ -14,11 +14,16 @@ const useValidation = ( value, validations ) => {
 
     useEffect( () => {
         const nextIsEmpty = !!validations.isEmpty && !value
-        const nextMinLength = validations.minLength ? value.length < validations.minLength : false
-        const nextMaxLength = validations.maxLength ? value.length > validations.maxLength : false
+
+        // Все остальные проверки работают только если поле заполнено
+        // (если isEmpty = false и значение пустое — дополнительные проверки не нужны)
+        const shouldValidate = !!value
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const nextIsEmail = validations.isEmail ? !(emailRegex.test(value) && value) : false
-        const nextIsSame = validations.isSame ? value !== validations.isSame : false
+        const nextMinLength = shouldValidate && validations.minLength ? value.length < validations.minLength : false
+        const nextMaxLength = shouldValidate && validations.maxLength ? value.length > validations.maxLength : false
+        const nextIsEmail = shouldValidate && validations.isEmail ? !emailRegex.test(value) : false
+        const nextIsSame = shouldValidate && validations.isSame ? value !== validations.isSame : false
 
         setEmpty(nextIsEmpty)
         setMinLength(nextMinLength)

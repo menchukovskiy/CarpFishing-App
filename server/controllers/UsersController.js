@@ -75,6 +75,10 @@ class UsersController {
             return next(ApiError.invalidData('UNEXPECTED_ERROR', 'Registration was not successful!'))
         }
 
+        await user.createUserSecurity({
+            user_id: user.id
+        });
+
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
 
         return res.json(
@@ -111,6 +115,9 @@ class UsersController {
         if (!comparePassword) {
             return next(ApiError.invalidData('INCORRECT_PASSWORD', 'Incorrect login or password'))
         }
+
+        user.last_login = new Date()
+        await user.save()
 
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
 
@@ -164,6 +171,43 @@ class UsersController {
         }
 
         user.avatar = null
+        await user.save()
+
+        const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
+
+        return res.json(
+            { token }
+        )
+    }
+
+    async updateEmailAndPassword(req, res, next) {
+        const user = req.user
+        const { email, password } = req.body
+
+        if (email === user.email && password === '') {
+            const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)
+            return res.json(
+                { token }
+            )
+        }
+
+        if (email && email !== user.email) {
+            const findByEmail = await User.findOne(
+                { where: { email } 
+            })
+
+            if (findByEmail) {
+                return next(ApiError.invalidData('USER_EMAIL_ALREADY_EXISTS', 'A user with this email already exists!'))
+            }
+
+            user.email = email
+        }
+
+        if (password) {
+            const hashPassword = await bcrypt.hash(password, 5)
+            user.password = hashPassword
+        }
+
         await user.save()
 
         const token = generateJWT(user.id, user.login, user.timezone, user.email, user.avatar)

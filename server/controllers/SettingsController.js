@@ -67,7 +67,6 @@ class SettingsController {
             next(ApiError.internal('INTERNAL_SERVER_ERROR', 'An error occurred while updating user information'))
         }
 
-
     }
 
 

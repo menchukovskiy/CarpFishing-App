@@ -1,6 +1,6 @@
 import { LayoutContext } from '../../components/UI';
-import { useContext, useState } from 'react';
-import { boxStyles, boxStylesBorder } from '../../utils/const';
+import { useContext } from 'react';
+import { boxStylesBorder } from '../../utils/const';
 import { Box, Typography } from '@mui/material';
 import { LANG } from '../../language/lang';
 import AccauntPicture from './AccauntPicture';
