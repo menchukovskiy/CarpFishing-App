@@ -4,10 +4,10 @@ import ROUTE from '../../utils/router';
 import './index.css';
 import { Box, Button, Typography, Menu, MenuItem } from '@mui/material';
 import { colors } from "../../theme";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-
+import { matchPath } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
 
@@ -15,12 +15,15 @@ const SubNavBar = ({ page }) => {
 
     const { isMobile } = useContext(LayoutContext)
     const location = useLocation()
-
-    const currentRoute = ROUTE.find(route => route.name === page);
-    const subRoutes = currentRoute && currentRoute.children ? currentRoute.children : [];
+    const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    const currentRoute = ROUTE.find(route => route.name === page);
+    if (!currentRoute) return null;
+    const subRoutes = currentRoute.children ?? [];
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -29,10 +32,37 @@ const SubNavBar = ({ page }) => {
         setAnchorEl(null);
     };
 
+    const handleMobileNavigate = (path) => {
+        handleClose();
+        setTimeout(() => {
+            navigate(path);
+        }, 0);
+    };
+
+    const buildChildPath = (childPath) =>
+        childPath ? `${currentRoute.path}/${childPath}` : currentRoute.path;
+
+    const activeChild = subRoutes.find((item) => {
+        const pattern = buildChildPath(item.path);
+        return !!matchPath({ path: pattern, end: true }, location.pathname);
+    });
+
+
+    const isInsideCurrentSection =
+        location.pathname === currentRoute.path ||
+        location.pathname.startsWith(`${currentRoute.path}/`);
+
+    if (isInsideCurrentSection) {
+        if (!activeChild) return null;
+        if (activeChild.showInSubNav === false) return null;
+    }
+
+    const menuItems = subRoutes.filter(item => item.type === "MenuItem");
+
     return (
         <>
             {
-                !isMobile && subRoutes.length > 0 && (
+                !isMobile && menuItems.length > 0 && (
 
                     <Box
                         className="sub-nav-bar"
@@ -43,7 +73,7 @@ const SubNavBar = ({ page }) => {
                             borderBottom: `1px solid ${colors.tealDark[700]}`
                         }}
                     >
-                        {subRoutes.map((subRoute, index) => {
+                        {menuItems.map((subRoute, index) => {
                             const path = subRoute.path !== "" ? `${currentRoute.path}/${subRoute.path}` : currentRoute.path
                             const isActive = location.pathname === path
                             return (
@@ -68,6 +98,7 @@ const SubNavBar = ({ page }) => {
                                     {subRoute.title || subRoute.name}
                                 </MuiLink>
                             )
+
                         }
                         )}
                     </Box>
@@ -75,7 +106,7 @@ const SubNavBar = ({ page }) => {
             }
 
             {
-                isMobile && subRoutes.length > 0 && (
+                isMobile && menuItems.length > 0 && (
                     <Box
                         display="flex"
                         flexDirection="row"
@@ -85,6 +116,7 @@ const SubNavBar = ({ page }) => {
                     >
                         <Typography variant="h6">{currentRoute.title || currentRoute.name}</Typography>
                         <Button
+                            id="sub-mobile-menu-button"
                             aria-controls={open ? 'sub-mobile-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
@@ -115,7 +147,7 @@ const SubNavBar = ({ page }) => {
                             }}
                             slotProps={{
                                 list: {
-                                    'aria-labelledby': 'sub-mobile-menu',
+                                    'aria-labelledby': 'sub-mobile-menu-button',
                                 },
                                 paper: {
                                     sx: {
@@ -125,19 +157,18 @@ const SubNavBar = ({ page }) => {
                             }}
                         >
                             {
-                                subRoutes.map((subRoute, index) => {
+                                menuItems.map((subRoute, index) => {
                                     const path = subRoute.path !== "" ? `${currentRoute.path}/${subRoute.path}` : currentRoute.path
                                     return (
                                         <MenuItem
                                             key={index}
-                                            onClick={handleClose}
-                                            component={RouterLink}
-                                            to={path}
+                                            onClick={() => handleMobileNavigate(path)}
                                             selected={location.pathname === path}
                                         >
                                             {subRoute.title || subRoute.name}
                                         </MenuItem>
                                     )
+
                                 })
                             }
 

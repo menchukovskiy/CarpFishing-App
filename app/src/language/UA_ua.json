@@ -83,6 +83,9 @@
         "SETTINGS_ACCOUNT_WHO_CAN_SEE_EMAIL": "Хто может видеть ваш email",
         "SETTINGS_ACCOUNT_WHO_CAN_SEE_SOCIAL_ACCOUNTS": "Хто может бачити ваші соціальні мережі",
         "ACCOUNT_PUBLIC": "Публічний",
-        "ACCOUNT_PRIVATE": "Приватний"
+        "ACCOUNT_PRIVATE": "Приватний",
+        "MENU_ITEM_FISHING": "Мої рибалки",
+        "FISHING_COMPLITED": "Завершені",
+        "FISHING_PLANNING": "Заплановані"
     }
 }
